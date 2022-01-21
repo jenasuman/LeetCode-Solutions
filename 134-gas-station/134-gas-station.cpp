@@ -4,10 +4,12 @@ public:
         
         int n=gas.size();
         
-        int total_gas=accumulate(gas.begin(),gas.end(),0);
-        int total_cost=accumulate(cost.begin(),cost.end(),0);
+//         int total_gas=0;
+//         int total_cost=0;
         
-        if(total_cost>total_gas)return -1;
+//         for(int i=0;i<)
+        
+//         if(total_cost>total_gas)return -1;
         
         int curr_gas=0;
         int start=0;
