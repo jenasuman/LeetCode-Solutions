@@ -9,37 +9,25 @@ public:
         
         if(total_cost>total_gas)return -1;
         
+        int curr_gas=0;
+        int start=0;
+        int prev_gas=0;
         
         for(int i=0;i<n;i++){
             
-            if(gas[i]==0 && cost[i]==0)continue;
+            curr_gas=curr_gas+(gas[i]-cost[i]);
             
-            int profit=gas[i]-cost[i];
-            
-            if(profit<0){
-                
-                continue;
-                
+            if(curr_gas<0){
+                prev_gas+=curr_gas;
+                curr_gas=0;
+                start=i+1;
+                curr_gas=0;
             }
-            int j=(i+1)%n;
-            while(profit>=0 && i!=j){
-                
-                profit=(profit+gas[j]-cost[j]);
-                j=(j+1)%n;
-                // cout<<profit<<"\n";
-            }
-            
-            if(profit>=0 && i==j){
-                return i;
-            }
-            
-            
-            
             
             
         }
         
-        return -1;
+        return curr_gas+prev_gas>=0?start:-1;
         
     }
 };
