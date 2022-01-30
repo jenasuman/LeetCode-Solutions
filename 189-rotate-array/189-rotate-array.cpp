@@ -3,30 +3,13 @@ public:
     void rotate(vector<int>& nums, int k) {
         int n=nums.size();
         vector<int> ans(n,0);
-        
-        if(k>=n){
-            
-            k=(k%n);
-            
+        int index;
+        for(int i=0;i<n;i++){
+            index=(i+k)%n;
+            ans[index]=nums[i];
         }
         
-        int i=n-1;
-        int t=k;
-        
-        
-        
-        while(t && i>=0){
-            
-            ans[t-1]=nums[i];
-            t--;
-            i--;
-         }
-         t=k;
-          
-         for(int j=0;j<n-k;j++){
-             ans[t]=nums[j];
-             t++;
-         }
         nums=ans;
+        
     }
 };
