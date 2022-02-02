@@ -4,67 +4,46 @@ public:
         int n=s.size();
         int k=p.size();
         
-        int sum=0;
+        
         
         vector<int> ans;
         
         if(k>n)return ans;
-        unordered_map<char,int> m,a;
+        
+        vector<int> a(26,0);
+        vector<int> b(26,0);
+        
         for(auto c:p){
-            m[c]++;
+            a[c-'a']++;
         }
         
         int j=0;
-        int count=0;
         
         for(int i=0;i<n;i++){
-            // cout<<j<<" "; 
-            if(m.find(s[i])!=m.end()){
+            
+            b[s[i]-'a']++;
+            
+            if((i-j+1)==k){
                 
-                a[s[i]]++;
-                count++;
-                
-                while(a[s[i]]>m[s[i]]){
-                    
-                  
-                        a[s[j]]--;
-                        count--;
-                        j++;
-                   
-                    
+                if(b==a){
+                    ans.push_back(j);
                 }
                 
-                
-                
-                
-            }
-            else{
-                j=i+1;
-                a.clear();    
-                count=0;
-                continue;
-                
-                
-            }
-            
-            
-            if((i-j+1)==k)
-            {    
-                
-                a[s[j]]--;
-                if(count==k)
-                ans.push_back(j);
-                count--;
+                b[s[j]-'a']--;
                 j++;
                 
+                
+                
+                
             }
-            
             
             
             
             
             
         }
+        
+        
         
         
         return ans;
