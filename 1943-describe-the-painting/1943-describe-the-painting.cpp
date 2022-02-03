@@ -16,10 +16,7 @@ public:
         int start=-1;
         for(auto i:m){
             
-          
-          
-            
-            if(prev>0){
+           if(prev>0){
                 ans.push_back({start,i.first,prev});
             }
             prev+=(i.second);
