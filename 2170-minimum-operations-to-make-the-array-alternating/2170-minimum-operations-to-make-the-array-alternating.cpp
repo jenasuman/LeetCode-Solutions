@@ -6,22 +6,22 @@ public:
     }
     int minimumOperations(vector<int>& nums){
         
+     
         unordered_map<int,int> m1,m2;
-        
+        int countEven=0;
+        int countOdd=0;
         int n=nums.size();
-        
         if(n==1)return 0;
-        
         for(int i=0;i<n;i++)
         {   
             if(i%2==0){
                 m1[nums[i]]++;
-              
+                countEven++;
             }
             else
             {
                   m2[nums[i]]++;  
-           
+                  countOdd++;
             }      
         }        
         
@@ -37,38 +37,18 @@ public:
         sort(v.begin(),v.end(),cmp);
         sort(u.begin(),u.end(),cmp);
         
-
+        int ans=INT_MAX;
         
-        int i=0;
-        int j=0;
-        
-        while(i<v.size() && j<u.size()){
-            
-            if(v[i].second!=u[j].second){
-                return n-v[i].first-u[j].first;
+        for(int i=0;i<2 && i<v.size();i++){
+            for(int j=0;j<2 && j<u.size();j++){
+                if(v[i].second==u[j].second)continue;
+                
+                int temp=countEven-v[i].first+countOdd-u[j].first;
+                
+                ans=min(temp,ans);
             }
-            
-            if(v[i].first>u[j].first){
-                
-                j++;
-                if(j==u.size()){
-                    return n-v[i].first;
-                }
-                
-                
-                
-            }
-            else{
-                i++;
-                
-                if(i==v.size()){
-                    return n-u[j].first;
-                }
-            }
-            
-            
         }
-        
-     return 0;
+        if(ans==INT_MAX)ans=min(countEven,countOdd);
+        return ans;
     }
 };
