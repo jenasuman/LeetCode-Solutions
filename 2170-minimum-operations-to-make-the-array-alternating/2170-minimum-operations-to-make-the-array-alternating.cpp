@@ -1,78 +1,74 @@
 class Solution {
 public:
     using p=pair<int,int>;
+    static bool cmp(p& a,p& b){
+        return a.first>b.first;
+    }
     int minimumOperations(vector<int>& nums){
         
-      
-        
         unordered_map<int,int> m1,m2;
-        int countEven=0;
-        int countOdd=0;
+        
         int n=nums.size();
         
         if(n==1)return 0;
-        
-        if(n==2 && nums[1]!=nums[0])return 0;
-        
         
         for(int i=0;i<n;i++)
         {   
             if(i%2==0){
                 m1[nums[i]]++;
-                countEven++;
+              
             }
             else
             {
                   m2[nums[i]]++;  
-                  countOdd++;
+           
             }      
         }        
         
-        priority_queue<p> evenPlaces,oddPlaces;
+        vector<pair<int,int>> v,u;
         
         for(auto i:m1){
-            evenPlaces.push({i.second,i.first});
+            v.push_back({i.second,i.first});
         }
         for(auto i:m2){
-            oddPlaces.push({i.second,i.first});
+            u.push_back({i.second,i.first});
         }
         
-        if(evenPlaces.top().second!=oddPlaces.top().second){
-            return n-evenPlaces.top().first-oddPlaces.top().first;
-        }
-        else{
+        sort(v.begin(),v.end(),cmp);
+        sort(u.begin(),u.end(),cmp);
+        
+
+        
+        int i=0;
+        int j=0;
+        
+        while(i<v.size() && j<u.size()){
             
-            if(evenPlaces.top().first>oddPlaces.top().first){
+            if(v[i].second!=u[j].second){
+                return n-v[i].first-u[j].first;
+            }
+            
+            if(v[i].first>u[j].first){
                 
-                oddPlaces.pop();
+                j++;
+                if(j==u.size()){
+                    return n-v[i].first;
+                }
                 
-                if(oddPlaces.empty()){
-                    return n-evenPlaces.top().first;
-                }
-                else{
-                    return n-evenPlaces.top().first-oddPlaces.top().first;
-                }
                 
                 
             }
-            
             else{
-                evenPlaces.pop();
+                i++;
                 
-                if(evenPlaces.empty()){
-                    return n-oddPlaces.top().first;
+                if(i==v.size()){
+                    return n-u[j].first;
                 }
-                else{
-                    return n-evenPlaces.top().first-oddPlaces.top().first;
-                }
-                
             }
-            
-            
             
             
         }
         
-        
+     return 0;
     }
 };
