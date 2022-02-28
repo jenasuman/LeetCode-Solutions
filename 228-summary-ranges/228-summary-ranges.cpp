@@ -2,9 +2,7 @@ class Solution {
 public:
     vector<string> summaryRanges(vector<int>& nums) {
         vector<string> ans;
-        
         string temp="";
-        
         int n=nums.size();
         if(n==0)return ans;
         int prev=0;
@@ -16,8 +14,7 @@ public:
                     flag=true;
                 }
                 if(nums[i]+1!=nums[i+1]){
-                    
-                     if(start==nums[i]){
+                    if(start==nums[i]){
                          temp+=to_string(nums[i]);
                      }
                      else{
@@ -28,11 +25,8 @@ public:
                     ans.push_back(temp);
                     flag=false;
                     temp="";
-                      
                 }
-             
-            
-        }
+             }
         if(!flag){
             temp+=to_string(nums[n-1]);
             ans.push_back(temp);
