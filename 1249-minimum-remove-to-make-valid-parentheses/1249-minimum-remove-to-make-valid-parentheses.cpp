@@ -19,10 +19,10 @@ public:
             
             
         }
-        set<int> m;
+        // set<int> m;
         
         while(!st.empty()){
-            m.insert(st.top());
+            s[st.top()]='#';
             st.pop();
         }
         
@@ -30,7 +30,7 @@ public:
         
         for(int i=0;i<n;i++){
             
-            if(m.find(i)==m.end())ans.push_back(s[i]);
+            if(s[i]!='#')ans.push_back(s[i]);
             
         }
         return ans;
