@@ -1,39 +1,31 @@
 class Solution {
 public:
-    typedef long long int ll;
-    long long int solve(vector<int>& nums,int right){
-        
-        ll temp_size=0;
-        ll ans=0;
+    int numSubarrayBoundedMax(vector<int>& nums, int left, int right) {
+        int ans=0;
+        int s=0;
+        int e=0;
         int n=nums.size();
         
+        int windowSize=0;
         
-        for(int i=0;i<n;i++){
+        
+        for(;e<n;e++){
             
-            if(nums[i]<=right){
-                temp_size++;
+            if(nums[e]<=right && nums[e]>=left){
+                windowSize=e-s+1;
             }
-            else{
-                ans+=(temp_size)*(temp_size+1)/2;
-                temp_size=0;
+            else if(nums[e]>right){
+                windowSize=0;
+                s=e+1;
             }
+            else if(nums[e]<left){
+                windowSize=windowSize;
+            }
+            
+            ans+=windowSize;
+            
             
         }
-        
-        ans+=temp_size*(temp_size+1)/2;
-        
         return ans;
-        
-        
-        
-        
-        
-        
-    }
-    
-    int numSubarrayBoundedMax(vector<int>& nums, int left, int right) {
-       
-        return solve(nums,right)-solve(nums,left-1);
-        
     }
 };
