@@ -1,51 +1,53 @@
 class Solution {
 public:
-    void dfs(vector<vector<int>>& adjList, int x, unordered_set<int>& seen, vector<string>& sets, int seti, unordered_map<int, int>& parentSet, string& s) {
-        if(seen.find(x) != seen.end()) return;
-        seen.insert(x);
-        sets[seti].push_back(s[x]);
-        parentSet[x] = seti;
-        auto& children = adjList[x];
-        for(auto child : children) {
-            dfs(adjList, child, seen, sets, seti, parentSet, s);
-        }
-    }
+void getConnComb(vector<vector<int>>& graph,vector<bool>& visit, int u,vector<int>& comb){
+            
+          visit[u]=true;
+          
+          comb.push_back(u);
     
-    string smallestStringWithSwaps(string s, vector<vector<int>>& pairs) {
-        int n = s.length();
-        vector<vector<int>> adjList(n);
-        
-        for(auto& pair : pairs) {
-            adjList[pair[0]].push_back(pair[1]);
-            adjList[pair[1]].push_back(pair[0]);
-        }
-        
-        unordered_set<int> seen;
-        vector<string> sets;
-        unordered_map<int, int> parentSet;
-        int seti = 0;
-        
-        for(int i = 0; i < n; i++) {
-            if(seen.find(i) == seen.end()) {
-                string newSet = "";
-                sets.push_back(newSet);
-                dfs(adjList, i, seen, sets, seti, parentSet, s);
-                seti++;
-            }
-        }
-        int setSize = sets.size();
-        
-        vector<int> its(setSize);
-        for(auto& thing : sets) {
-            sort(thing.begin(), thing.end());
-        }
-        for(int i = 0; i < n; i++) {
-            int j = parentSet[i];      
-            s[i]  = sets[j][its[j]++];  
-        }
-
-        return s;
-        
+          for(auto i:graph[u]){
+              if(!visit[i]){
+                  getConnComb(graph, visit,i,comb);
+              }
+          }
+     
     }
-
+    string smallestStringWithSwaps(string s, vector<vector<int>>& pairs) {
+        int V = s.size();
+        vector<vector<int>> graph(V);
+        for(auto p: pairs) {
+            graph[p[0]].push_back(p[1]);
+            graph[p[1]].push_back(p[0]);
+        }
+        vector<bool> visit(V, false);
+        vector<vector<int>> ConnCombs;
+		/*finding connected componets*/
+        for(int u = 0; u < V; ++u) {
+            if(visit[u] == false) {
+                vector<int> comb;
+               getConnComb(graph,visit,u,comb);
+                ConnCombs.push_back(comb);
+            }
+        } 
+        string ans=s;
+        for(auto v:ConnCombs){
+            
+            vector<char> ConnChars;
+            
+            for(auto c:v){
+                ConnChars.push_back(s[c]);
+            }
+            
+            sort(ConnChars.begin(),ConnChars.end());
+            sort(v.begin(),v.end());
+            int j=0;
+            for(auto i:v){
+                ans[i]=ConnChars[j++];
+            }
+            
+            
+        }
+        return ans;
+    }
 };
