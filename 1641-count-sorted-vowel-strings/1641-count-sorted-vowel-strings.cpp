@@ -1,25 +1,24 @@
 class Solution {
 public:
-    void solve(int index,int n,int& ans){
+    int count(int i,int n,string& vowels,vector<vector<int>>& dp){
         if(n==0){
-            ans++;
-            return;
+            return 1;
+        }
+        if(i>4){
+            return 0;
         }
         
-        for(int i=index;i<5;i++){
-            solve(i,n-1,ans);
-        }
+        if(dp[i][n]!=-1)return dp[i][n];
+        
+        int pick=count(i,n-1,vowels,dp);
+        int notPick=count(i+1,n,vowels,dp);
+        
+        return dp[i][n]=pick+notPick;
         
     }
     int countVowelStrings(int n) {
-      
-         int ans=0;    
-         for(int i=0;i<5;i++){
-             
-             solve(i,n-1,ans);
-             
-             
-         } 
-        return ans;
+     string vowels= "aeiou"; 
+   	 vector<vector<int>> dp(5, vector<int>(n+1, -1)); 
+   	 return count(0, n, vowels, dp);
     }
 };
