@@ -12,12 +12,7 @@ public:
         
     }
     int countVowelStrings(int n) {
-         vector<char> v;
-         v.push_back('a');
-         v.push_back('e');
-         v.push_back('i');
-         v.push_back('o');
-         v.push_back('u');
+      
          int ans=0;    
          for(int i=0;i<5;i++){
              
