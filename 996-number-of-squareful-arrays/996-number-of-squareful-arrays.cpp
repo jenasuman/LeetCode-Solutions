@@ -12,10 +12,10 @@ public:
         
         for(int i=index;i<nums.size();i++){
             if(i>index && nums[i]==nums[index])continue;
-            int x=nums[i]+nums[index-1];
-            int y=sqrt(x);
+            int x=index==0?0:(nums[i]+nums[index-1]);
+            int y=index==0?0:sqrt(x);
             // cout<<x<<" "<<y*y<<"\n";
-            if(index==1 || x==y*y){
+            if(x==y*y){
                 
                 swap(nums[i],nums[index]);
                 
@@ -36,10 +36,10 @@ public:
     int numSquarefulPerms(vector<int>& nums) {
         
         // ans=0;
-        vector<int> temp;
-        temp.push_back(0);
-        for(auto i:nums)temp.push_back(i);
-        solve(1,temp);
+        // vector<int> temp;
+        // temp.push_back(0);
+        // for(auto i:nums)temp.push_back(i);
+        solve(0,nums);
         return s.size();
     }
 };
