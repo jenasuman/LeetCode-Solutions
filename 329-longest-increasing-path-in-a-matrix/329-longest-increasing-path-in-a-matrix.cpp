@@ -1,42 +1,37 @@
 class Solution {
 public:
+  
+    int solve(int x,int y,int n,int m,vector<vector<int>>& mat,vector<vector<int>>& dp,int prev){
+        
+        if(x<0 || y<0 || x>=n || y>=m || mat[x][y]<=prev)return 0;
+        
+        if(dp[x][y]!=-1)return dp[x][y];
+        
+        int l=solve(x,y-1,n,m,mat,dp,mat[x][y]);
+        int r=solve(x,y+1,n,m,mat,dp,mat[x][y]);
+        int u=solve(x-1,y,n,m,mat,dp,mat[x][y]);
+        int d=solve(x+1,y,n,m,mat,dp,mat[x][y]);
 
-    int dp[201][201];
-    int solve(int x,int y,vector<vector<int>>& matrix, int prev){
         
-    if(x<0 || y<0 || y>=matrix[0].size() || x>=matrix.size() || matrix[x][y]<=prev)
-        return 0;
+        return dp[x][y]=max({l,r,d,u})+1;
         
-        if(dp[x][y])return dp[x][y];
-        
-        int l=solve(x-1,y,matrix,matrix[x][y]);
-        int r=solve(x+1,y,matrix,matrix[x][y]);
-        int u=solve(x,y-1,matrix,matrix[x][y]);
-        int d=solve(x,y+1,matrix,matrix[x][y]);
-        
-        return dp[x][y]=max({l,r,u,d})+1;
         
         
     }
+    
+    
     int longestIncreasingPath(vector<vector<int>>& matrix) {
         int n=matrix.size();
         int m=matrix[0].size();
-        memset(dp,0,sizeof(dp));
-        int ans=0;
+        int ans=1;
+        vector<vector<int>> dp(n,vector<int>(m,-1));
         for(int i=0;i<n;i++){
-            
-            for(int j=0;j<m;j++){
-                
-                int x=solve(i,j,matrix,-1);
-                ans=max(x,ans);
-                
-                
-            }
-            
-            
-            
+        
+        for(int j=0;j<m;j++){
+             int temp=solve(i,j,n,m,matrix,dp,-1);   
+            ans=max(temp,ans);
+        }
         }
         return ans;
-        
     }
 };
