@@ -57,8 +57,6 @@ public:
         }
         
         int size=v.size();
-        // vector<vector<vector<int>>> dp(size,vector<int>(n,vector<int>(m,-1)));
-        
         return solve(size-1,v,m,n);
     }
 };
