@@ -2,24 +2,21 @@ class Solution {
 public:
     bool increasingTriplet(vector<int>& nums) {
      
+      // Using LIS we can do it in O(nlog(n)) time;
         
-        int first=INT_MAX;
-        int second=INT_MAX;
+        int firstMin=INT_MAX;
+        int secondMin=INT_MAX;
         
         for(auto i:nums){
             
-            if(first>=i){
-                first=i;
+            if(i<=firstMin){
+                firstMin=i;
             }
-            else if(i>first && i<second)second=i;
-            
-            else if(i>second){
-                
-                
+            else if(i<=secondMin){
+                secondMin=i;
+            }
+            else{
                 return true;
-                
-                
-                
             }
             
             
@@ -27,8 +24,8 @@ public:
             
             
         }
-        return false;
         
+        return false;
         
     }
 };
