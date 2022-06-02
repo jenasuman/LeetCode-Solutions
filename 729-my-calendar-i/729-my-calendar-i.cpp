@@ -1,21 +1,18 @@
 class MyCalendar {
-    vector<pair<int,int>> v;
+   map<int,int> m;
 public:
     MyCalendar() {
         
     } 
     bool book(int ns, int ne) {
         
-        for(auto [s,e]:v){
-          
-          
-            if(!(ns>=e || ne<=s))return false;
-            
-            
-            
-        }
+        auto it=m.upper_bound(ns);
         
-        v.push_back({ns,ne});
+        if(it!=m.end() && !(it->first>=ne)) return false;
+        if(it!=m.begin() && !(prev(it)->second<=ns))return false;
+        
+        m[ns]=ne;
+        
         return true;
         
     }
