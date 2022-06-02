@@ -4,13 +4,18 @@ public:
     MyCalendar() {
         
     } 
-    bool book(int start, int end) {
+    bool book(int ns, int ne) {
         
         for(auto [s,e]:v){
-          if(min(e,end)>max(s,start))return false;
+          
+          
+            if(!(ns>=e || ne<=s))return false;
+            
+            
+            
         }
         
-        v.push_back({start,end});
+        v.push_back({ns,ne});
         return true;
         
     }
