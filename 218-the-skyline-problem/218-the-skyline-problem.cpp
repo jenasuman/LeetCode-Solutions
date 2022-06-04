@@ -15,9 +15,7 @@ public:
         }
         
         sort(v.begin(),v.end(),comp);
-        // for(auto i:v){
-        //     cout<<i.first<<" "<<i.second<<"\n";
-        // }
+  
         vector<vector<int>> ans;
         multiset<int> s;
         s.insert(0);
@@ -27,11 +25,7 @@ public:
             
            if(h<0){
                
-               
-               
                auto it=s.find((-1*h));
-               
-               // cout<<*it<<" ";
                if(it!=s.end())s.erase(it);
                int curr=*(s.rbegin());
                if(prev>curr){
@@ -40,12 +34,12 @@ public:
                }
                
            } 
-           // auto currHeight=s.rbegin(); 
+           
            if(prev<h){
                prev=h;
                ans.push_back({x,h});
            }    
-           // cout<<prev<<" ";
+           
             s.insert(h);
             
             
