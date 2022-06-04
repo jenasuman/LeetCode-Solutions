@@ -1,6 +1,5 @@
 class MyCalendarTwo {
-    vector<pair<int,int>> bookings;
-    vector<pair<int,int>> doubleBookings;
+    map<int,int> m;
 public:
     MyCalendarTwo() {
         
@@ -8,29 +7,24 @@ public:
     
     bool book(int start, int end) {
         
-        for(auto [s,e]:doubleBookings){
-            
-            if(max(s,start)<min(e,end))return false;
-            
-        }
+        int countEvents=0;
         
-        for(auto [s,e]:bookings){
+        m[start]+=1;
+        m[end]+=-1;
+        
+        for(auto [time,value]:m){
             
-            if(max(s,start)<min(e,end)){
-                int newStart=max(s,start);
-                int newEnd=min(e,end);
-                doubleBookings.push_back({newStart,newEnd});
+            countEvents+=value;
+            
+            if(countEvents>2){
+                m[start]-=1;
+                m[end]+=1;
+                return false;
             }
             
-            
         }
         
-        
-        
-        bookings.push_back({start,end});
-        
         return true;
-        
     }
 };
 
