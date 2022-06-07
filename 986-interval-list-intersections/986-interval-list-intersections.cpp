@@ -10,38 +10,31 @@ public:
             return ans;
         }
         
-        for(int i=0;i<n;i++){
-               
-            int currStart=f[i][0];
-            int currEnd=f[i][1];
+        //O(M*N)
+        //O(M+N)
+        
+        int i=0;
+        int j=0;
+        
+        while(i<n && j<m){
             
-            
-            for(int j=0;j<m;j++){
+            if(min(f[i][1],s[j][1])>=max(f[i][0],s[j][0])){
                 
-                int givenStart=s[j][0];
-                int givenEnd=s[j][1];
+                int l=max(f[i][0],s[j][0]);
+                int r=min(f[i][1],s[j][1]);
                 
-                if(max(currStart,givenStart)<=min(currEnd,givenEnd)){
-                    
-                    int r=max(currStart,givenStart);
-                    int l=min(currEnd,givenEnd);
-                    
-                    ans.push_back({r,l});
-                    
-                    
-                    
-                }
-               
-                
-                
-                
-                
-                
+                ans.push_back({l,r});
                 
             }
             
             
+            if(f[i][1]<s[j][1]){
+                i++;
+            }
             
+            else{
+                j++;
+            }
             
             
             
