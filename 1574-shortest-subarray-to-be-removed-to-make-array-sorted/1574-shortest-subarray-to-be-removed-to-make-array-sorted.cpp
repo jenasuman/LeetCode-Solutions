@@ -2,20 +2,36 @@ class Solution {
 public:
     int findLengthOfShortestSubarray(vector<int>& arr) {
        
-        int size = arr.size();
-        int r;
+        int n=arr.size();
         
-        for (r = size - 1; r >= 1; r--) if (arr[r - 1] > arr[r]) break;
-        
-        int ans = r;
-        for (int i = 0; i < size - 1 && i < r; i++) {
-            if (r == size || arr[i] <= arr[r]) ans = min(ans, r - i - 1);
-            else r++;
+        int ans;
+        int r=n-1;
+        for(;r>=1;r--){
             
-            if (arr[i + 1] < arr[i]) break;
+            if(arr[r]<arr[r-1])break;
+            
         }
-        // 7 8 9 4 5 1 2 3 10 11
-        // i i i     r r r r
-        return ans;
+        
+        ans=r;
+        // cout<<r<<"\n";
+        int l=0;
+        
+        while(l<n-1 && l<r){
+            
+            if(r<n && arr[l]>arr[r]){
+                r++;
+            }
+            else{
+                // cout<<r-l-1<<"\n";
+                ans=min(ans,r-l-1);
+                if(arr[l]>arr[l+1])break;
+                l++;
+            }
+            
+            
+            
+        }
+        
+     return ans;
     }
 };
