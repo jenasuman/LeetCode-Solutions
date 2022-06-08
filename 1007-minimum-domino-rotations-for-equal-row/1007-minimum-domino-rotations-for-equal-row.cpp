@@ -2,31 +2,11 @@ class Solution {
 public:
     int minDominoRotations(vector<int>& tops, vector<int>& bottoms) {
         
-        unordered_map<int,int> m;
-        
-        int n=tops.size();
-        
 
-        
-        for(auto i:tops){
-            m[i]++;
-        }
-        for(auto i:bottoms){
-            m[i]++;
-        }
-        
-        vector<int> v;
-        
-        for(auto [x,count]:m){
-            
-            if(count>=n){
-                v.push_back(x);
-            }
-            
-        }
         // O(6*N)
+        int n=tops.size();
         int ans=INT_MAX;
-      for(int num=1;num<=6;num++){  
+       for(int num=1;num<=6;num++){  
           int count1=0;
           int count2=0;
           bool flag=true;
