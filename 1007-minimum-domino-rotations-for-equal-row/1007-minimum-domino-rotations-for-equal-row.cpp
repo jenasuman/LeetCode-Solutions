@@ -26,7 +26,7 @@ public:
         }
         // O(6*N)
         int ans=INT_MAX;
-      for(auto num:v){  
+      for(int num=1;num<=6;num++){  
           int count1=0;
           int count2=0;
           bool flag=true;
