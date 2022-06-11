@@ -21,18 +21,18 @@ public:
         
         vector<long long int> suffix(n);
         
-        suffix[n-1]=beans[n-1];
+        suffix[n-1]=0;
         
         for(int i=n-2;i>=0;i--){
             
-            suffix[i]=suffix[i+1]+beans[i];
+            suffix[i]=suffix[i+1]+beans[i+1];
             
         }
         
-        long long int ans=1e13;
+        long long  ans=1e13;
         
         for(long long  i=0;i<n;i++){
-            long long  t=(long long)(n-i)*(long long)(beans[i]);
+            long long  t=(long long)(n-i-1)*(long long)(beans[i]);
             long long currAns=prefix[i]+(suffix[i]-(t));
             
             ans=min(currAns,ans);
