@@ -10,7 +10,7 @@ public:
         vector<int> ans;
         for(int i=0;i<n;i++){
             
-            long long  k=ceil(su*(1.00)/s[i]);
+            long long  k=ceil(su/s[i]);
             
             int index=lower_bound(p.begin(),p.end(),k)-p.begin();
             
