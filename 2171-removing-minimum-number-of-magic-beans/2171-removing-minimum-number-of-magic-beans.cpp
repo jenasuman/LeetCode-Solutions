@@ -1,40 +1,46 @@
 class Solution {
 public:
-    long long minimumRemoval(vector<int>& v) {
+    long long minimumRemoval(vector<int>& beans) {
         
-int n = v.size();
-        sort(v.begin(), v.end());
-        if(n == 1) return 0;    
-		
-		// Calculating prefix and suffix sums
-        vector<long long> pref(n, 0), suf(n, 0);
-        for(int i = 0; i < n; i++)
-        {
-            if(i == 0) 
-                pref[i] = v[i];
-            else 
-                pref[i] = pref[i-1] + v[i];
+        sort(beans.begin(),beans.end());
+        int n=beans.size();
+        
+        if(n==0)return 0;
+        
+        if(beans[0]==beans[n-1]){
+            return 0;
         }
-        for(int i = n-1; i >= 0; i--)
-        {
-            if(i == n-1) 
-                suf[i] = v[i];
-            else 
-                suf[i] = suf[i+1] + v[i];
+        
+        vector<long long> prefix(n);
+        
+        prefix[0]=0;
+        
+        for(int i=1;i<n;i++){
+            prefix[i]=beans[i-1]+prefix[i-1];
         }
-       
-		long long res = 1e13;
-       
-		// Required calculation for minimum number of operations
-		for(int i = 0; i < n; i++)
-        {
-            long long prevSum = ((i == 0) ? 0 : pref[i-1]);
-            long long aheadSum = suf[i];
-            long long temp = prevSum + aheadSum - (long long)(n-i)*(long long)v[i];
-            res = min(res, temp);
+        
+        vector<long long int> suffix(n);
+        
+        suffix[n-1]=beans[n-1];
+        
+        for(int i=n-2;i>=0;i--){
+            
+            suffix[i]=suffix[i+1]+beans[i];
+            
         }
-        return res;
-
+        
+        long long int ans=1e13;
+        
+        for(long long  i=0;i<n;i++){
+            long long  t=(long long)(n-i)*(long long)(beans[i]);
+            long long currAns=prefix[i]+(suffix[i]-(t));
+            
+            ans=min(currAns,ans);
+            
+            
+        }
+        
+        return ans;
         
     }
 };
