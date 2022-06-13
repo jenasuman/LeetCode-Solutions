@@ -1,33 +1,32 @@
 class Solution {
-public:
-  
-   
-    int coinChange(vector<int>& coins, int amount) {
+    int n;
+    int dp[13][10002];
+    int f(int i,vector<int>& coins,int amount){
         
         if(amount==0)return 0;
-        
-        vector<vector<int>> dp(coins.size()+1,vector<int>(amount+1));
-        
-        for(int i=0;i<=coins.size();i++){
-            dp[i][0]=0;
-         }
-        for(int i=1;i<amount+1;i++){
-            dp[0][i]=INT_MAX-1;
+        if(i<0 && amount){
+            return INT_MAX;
         }
+        if(dp[i][amount]!=-1)return dp[i][amount];
+        int take=INT_MAX;
+        int notTake=INT_MAX;
         
-        for(int i=1;i<=coins.size();i++){
-            for(int j=1;j<=amount;j++){
-                
-                if(j>=coins[i-1]){
-                    dp[i][j]=min(1+dp[i][j-coins[i-1]],dp[i-1][j]);
-                }
-                else{
-                    dp[i][j]=dp[i-1][j];
-                }
-                
-                
-            }
+        if(coins[i]<=amount){
+            
+            int ans=f(i,coins,amount-coins[i]);
+            take=(ans!=INT_MAX)?(1+ans):INT_MAX;
+            
         }
-        return dp[coins.size()][amount]==INT_MAX-1?-1:dp[coins.size()][amount];
+        notTake=f(i-1,coins,amount);
+        
+        return dp[i][amount]=min(take,notTake);
+    } 
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        memset(dp,-1,sizeof(dp));
+        n=coins.size();
+        int i=n-1;
+        int ans=f(i,coins,amount);
+        return ans==INT_MAX?-1:ans;
     }
 };
