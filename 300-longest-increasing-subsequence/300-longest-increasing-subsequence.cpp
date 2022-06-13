@@ -23,14 +23,27 @@ public:
     int lengthOfLIS(vector<int>& nums) {
         
         // nums.insert(nums.begin(),-10000);
-        memset(dp,-1,sizeof(dp));
-        int i=-1;
-        int j=0;
-        n=nums.size();
+        //O(nlogn)
         
-        return f(i,j,nums);
+        vector<int> ans;
+        
+        ans.push_back(nums[0]);
+        
+        int n=nums.size();
+        
+        for(int i=1;i<n;i++){
+            
+            int index=lower_bound(ans.begin(),ans.end(),nums[i])-ans.begin();
+            
+            if(index==ans.size()){
+                ans.push_back(nums[i]);
+            }
+            else
+                ans[index]=nums[i];
+        }
         
         
+        return ans.size();
         
         
     }
