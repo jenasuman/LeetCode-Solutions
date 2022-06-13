@@ -25,7 +25,7 @@ public:
     int knapSack(int N, int W, int val[], int wt[])
     {   
         if(N==0)return 0;
-        int dp[1002][1002];
+        int dp[1002];
         memset(dp,0,sizeof(dp));
         
         
@@ -33,10 +33,10 @@ public:
             
             for(int w=1;w<=W;w++){
 
-               int pick=(w>=wt[i-1])?val[i-1]+dp[i][w-wt[i-1]]:0;
-               int notPick=dp[i-1][w];  
+               int pick=(w>=wt[i-1])?val[i-1]+dp[w-wt[i-1]]:0;
+               int notPick=dp[w];  
                   
-               dp[i][w]=max(pick,notPick);    
+               dp[w]=max(pick,notPick);    
                 
                 
             }
@@ -45,7 +45,7 @@ public:
             
         }
         
-        return dp[N][W];
+        return dp[W];
     }
 };
 
