@@ -13,9 +13,9 @@ long long int f(long long int n,long long int i,long long int arr[]){
         return 1;
     }
     
-    if(i==0 || n<0)return 0;
+    if(i<0 )return 0;
     
-    long long int pick=(arr[i-1]<=n)?f(n-arr[i-1],i,arr):0;
+    long long int pick=(arr[i]<=n)?f(n-arr[i],i,arr):0;
     long long int notPick=f(n,i-1,arr);
     
     return pick+notPick;
@@ -30,7 +30,7 @@ long long int count(long long int n)
       
       long long int arr[3]={3,5,10};
       
-      return f(n,3,arr);
+      return f(n,2,arr);
 }
 
 // { Driver Code Starts.
