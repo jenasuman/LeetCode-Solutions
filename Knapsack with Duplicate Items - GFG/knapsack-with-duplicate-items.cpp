@@ -17,16 +17,35 @@ class Solution{
         
         return dp[index][W]=max(pick,notPick);
         
-        
+        // TC: O(N*W)
+        // SC: O(N*W)+O(N)
         
     }
 public:
     int knapSack(int N, int W, int val[], int wt[])
     {   
         if(N==0)return 0;
-        int dp[1001][1001];
-        memset(dp,-1,sizeof(dp));
-        return f(N-1,val,wt,W,dp);
+        int dp[1002][1002];
+        memset(dp,0,sizeof(dp));
+        
+        
+        for(int i=1;i<=N;i++){
+            
+            for(int w=1;w<=W;w++){
+
+               int pick=(w>=wt[i-1])?val[i-1]+dp[i][w-wt[i-1]]:0;
+               int notPick=dp[i-1][w];  
+                  
+               dp[i][w]=max(pick,notPick);    
+                
+                
+            }
+            
+            
+            
+        }
+        
+        return dp[N][W];
     }
 };
 
