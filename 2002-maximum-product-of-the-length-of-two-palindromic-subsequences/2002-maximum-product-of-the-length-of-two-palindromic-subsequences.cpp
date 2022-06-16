@@ -1,43 +1,54 @@
 class Solution {
-    vector<vector<int>> APS;
+   
     int n;
-    bool isPallindrome(string& s,vector<int>& temp){
+    bool isPallindrome(string& s){
         
         int i=0;
-        int j=temp.size()-1;
+        int j=s.size()-1;
         
         while(i<j){
-            if(s[temp[i]]!=s[temp[j]])return false;
+            if(s[i]!=s[j])return false;
             i++;
             j--;
         }
-        // cout<<s<<" ";
+     
         return true;
         
         
     }
-    void f(int index,string& s,vector<int>& temp){
-          if(temp.size()!=0 && isPallindrome(s,temp)){
-                   APS.push_back(temp);
-           }
-           if(index==n){
+    int ans;
+    void f(int index,string& s,string& s1,string& s2){
+
+        if(index==n){
+            
+            if(isPallindrome(s1) && isPallindrome(s2)){
+                
+                int m=s1.size();
+                int l=s2.size();
+                
+                ans=max(ans,l*m);
+                
+            }
+            
+            return;
+            
+            
+        }
         
-          
-               return;
-           }
-           
-           for(int i=index;i<n;i++){
-               
-               temp.push_back(i);
-               f(i+1,s,temp);
-               temp.pop_back();
-               
-               
-           }
         
         
-        return;
+        //Not pick in any string
+        f(index+1,s,s1,s2);
         
+        //Pick in string 1
+        s1.push_back(s[index]);
+        f(index+1,s,s1,s2);
+        s1.pop_back();
+        
+        //Pick in string 2
+        s2.push_back(s[index]);
+        f(index+1,s,s1,s2);
+        s2.pop_back();
         
         
     }
@@ -47,46 +58,11 @@ public:
     int maxProduct(string s) {
 
         n=s.size();
-        vector<int> curr;
-        f(0,s,curr);
-        int ans=INT_MIN;
+        string s1="";
+        string s2="";
+        ans=INT_MIN;
         
-        int m=APS.size();
-        for(int i=0;i<m;i++){
-            int h=APS[i].size();
-            for(int j=i+1;j<m;j++){
-                
-                int l=APS[j].size();
-                
-                bool flag=true;
-                
-                for(int k=0;k<l;k++){
-                    
-         int index=lower_bound(APS[i].begin(),APS[i].end(),APS[j][k])-APS[i].begin();
-                    
-                    if(index!=APS[i].size() && APS[i][index]==APS[j][k]){
-                        
-                        flag=false;
-                        break;
-                        
-                    }
-                    
-                }
-                
-                if(flag){
-                    ans=max(h*l,ans);
-                }
-                
-                
-                
-            }
-            
-            
-            
-        }
-        
-
-        
+        f(0,s,s1,s2);
         return ans;
         
     }
