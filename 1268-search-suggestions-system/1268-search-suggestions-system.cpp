@@ -31,8 +31,6 @@ public:
             temp.push_back(s[k]);
             
             vector<string> res;
-        
-            // if(m.find(temp)==m.end())break;
             
             int i=m[temp];
             int j=i;
