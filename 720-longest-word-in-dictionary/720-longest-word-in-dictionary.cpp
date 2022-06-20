@@ -2,7 +2,7 @@ class Solution {
 public:
     string longestWord(vector<string>& words) {
         
-        //26*30
+        //(1000*30)
         
         unordered_map<string,int> dict;
         queue<string> q;
