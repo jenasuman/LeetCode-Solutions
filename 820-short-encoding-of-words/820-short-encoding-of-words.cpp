@@ -20,16 +20,14 @@ public:
         for(int i=0;i<n;i++){
             if(m[words[i]]>0){
                 ans=ans+words[i].size()+1;
-                string temp="";
+
                 int j=words[i].size()-1;
+                int l=words[i].size();
                 for(;j>=0;j--){
-                    temp.push_back(words[i][j]);
-                    // cout<<temp<<" ";
-                    string s=temp;
-                    reverse(begin(s),end(s));
-                    if(m.find(s)!=m.end()){
-                        m[s]=0;
-                    }
+
+                    string temp=words[i].substr(j,l-j);
+                    
+                    m[temp]=0;
                     
                 }
                 
