@@ -8,7 +8,8 @@ public:
         // vector<int> smaller(nums);
         
         sort(begin(great),end(great),greater<int>());
-   
+         
+        // O(nlogn) 
         
         int i=0;
     
