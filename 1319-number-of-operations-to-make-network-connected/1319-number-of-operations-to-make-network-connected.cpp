@@ -1,61 +1,69 @@
 class Solution {
-    void dfs(int i,vector<vector<int>>& g,vector<int>& vis){
+    int findParent(int a,vector<int>& parent){
+        if(parent[a]==-1)return a;
         
-        vis[i]=1;
         
-        for(auto c:g[i]){
-            if(vis[c]==0){
-                dfs(c,g,vis);
-            }
-        }
+        return parent[a]=findParent(parent[a],parent);
         
         
         
     }
+    
+    void dsu(int a,int b,vector<int>& parent,vector<int>& rank){
+        
+        a=findParent(a,parent);
+        b=findParent(b,parent);
+        
+        if(a!=b){
+            
+            if(rank[a]<rank[b]){
+                swap(a,b);
+            }
+            
+            parent[b]=a;
+            rank[a]+=rank[b];
+            
+        }
+        
+        
+        
+        
+    }
+    
 public:
     int makeConnected(int n, vector<vector<int>>& connections) {
         
+        int N=connections.size();
+        if(N<(n-1)){
+            return -1;
+        }
         
-        vector<vector<int>> g(n);
-        int edges=connections.size();
-        int count=0;
+        
+        vector<int> parent(n,-1);
+        vector<int> rank(n,1);
+        
         for(auto v:connections){
-            if(g[v[0]].size()==0)count++;
-            if(g[v[1]].size()==0)count++;
-            g[v[0]].push_back(v[1]);
-            g[v[1]].push_back(v[0]);
+            
+            dsu(v[0],v[1],parent,rank);
+            
             
         }
-        edges-=(count-1);
-        // cout<<edges<<"\n";
-        // vector<int> parent(n,-1);
         
-        vector<int> vis(n,0);
-        
-        int nos=0;
+        int count=0;
         for(int i=0;i<n;i++){
-           
-        if(vis[i]==0){
             
-            nos++;
-            
-            dfs(i,g,vis);
-            
-            
+            if(parent[i]==-1){
+                count++;
+            }
         }
         
         
-        }     
+        return count-1;
         
         
         
         
         
-        
-        
-        
-        
-        // nos= Number of sets
-        return (nos-1)<=edges?(nos-1):-1;
+      
     }
 };
