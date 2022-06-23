@@ -34,14 +34,37 @@ class Solution{
 	public:
 	int TotalWays(int N)
 	{
-	    // Code here
-	    
-	    memset(dp,-1,sizeof(dp));
-	    
-	    long long int ans=f(1,0,N);
-        
-        return (ans*ans)%mod;	    
-	   
+       
+       vector<vector<long long int>> d(N+2,vector<long long int>(2,0));
+       
+       d[N+1][0]=1;
+       d[N+1][1]=1;
+
+       for(int i=N;i>=1;i--){
+           
+           for(int j=0;j<2;j++){
+               
+               if(j==0){
+                   d[i][j]=(d[i+1][1]+d[i+1][0])%mod;
+               }
+               else{
+                   d[i][j]=d[i+1][0];
+               }
+               
+               
+           }
+           
+           
+           
+       }
+    //   for(int i=1;i<=(N+1);i++){
+    //       for(int j=0;j<2;j++){
+    //           cout<<d[i][j]<<" ";
+    //       }
+    //       cout<<"\n";
+    //   }
+       long long int ans=d[1][0];
+       return (ans*ans)%mod;
 	    
 	}
 };
