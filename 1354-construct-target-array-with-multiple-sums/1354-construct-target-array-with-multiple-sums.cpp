@@ -3,6 +3,8 @@ public:
     using ll= long long int;
     bool isPossible(vector<int>& target) {
         
+        if(target.size()==1)return target[0]==1;
+        
         priority_queue<ll> pq;
         
         ll sum=0;
@@ -22,8 +24,8 @@ public:
             if(sum==1){
                 return true;
             }
-    
-            if(sum>currTop || sum==0 || (currTop%sum)==0){
+     
+            if(sum>currTop || (currTop%sum)==0){
                 return false;
             }
             
