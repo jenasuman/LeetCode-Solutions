@@ -13,11 +13,10 @@ public:
          for(int i=0;i<26;i++){
              
              if(v[i]>0){
-                 // cout<<v[i]<<" ";
-                 pq.push(v[i]);
+               pq.push(v[i]);
              }
          }
-         // cout<<"\n";
+
          int ans=0;
         
          while(!pq.empty()){
