@@ -1,74 +1,84 @@
-
 class Solution {
+    using p=pair<int,int>;
 public:
-    int findTheCity(int n, vector<vector<int>>& edges, int t) {
-        // We have to call dijstra in every node of the graph 
+    int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
         
-        unordered_map<int,vector<pair<int,int>>> adj;
+        int ans=-1;
+        
+        vector<p> adj[n];
         
         for(auto v:edges){
             
-            adj[v[0]].push_back({v[1],v[2]});
             adj[v[1]].push_back({v[0],v[2]});
+            adj[v[0]].push_back({v[1],v[2]});
+            
             
         }
-        int miCities=INT_MAX;
-        int index=-1;
         
+        int count=103;
         for(int i=0;i<n;i++){
             
             vector<int> dis(n,INT_MAX);
             
-            priority_queue <pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>> > pq;
+            priority_queue<p,vector<p>,greater<p>> pq;
             
             pq.push({0,i});
             
+            dis[i]=0;
+            
             while(!pq.empty()){
                 
-                auto p=pq.top();
-                pq.pop();
+               int d=pq.top().first;
                 
-                int cNode=p.second;
-                int cDist=p.first;
+               int index=pq.top().second;
                 
-                if(cDist>dis[cNode]){
-                    continue;
-                }
+               pq.pop(); 
                 
-                dis[cNode]=cDist;
                 
-                for(auto c:adj[cNode]){
-                    
-                      pq.push({cDist+c.second,c.first});
+               for(auto c:adj[index]){
+                   
+                   int wt=c.second;
+                   int j=c.first;
+                   
+                   if(d+wt<dis[j]){
+                       
+                       dis[j]=d+wt;
+                       
+                       pq.push({dis[j],j});
+                       
+                       
+                   }
+                   
+                   
+                   
+                   
+               } 
                 
-                 }
                 
-             }
-            
-            int count=0;
-            
-            for(auto d:dis){
-                if(d<=t){
-                    count++;
-                }
-            }
-            
-            count-=1;
-            
-            if(count<=miCities){
                 
-                miCities=count;
-                index=i;
+                
                 
             }
             
+            int tempCount=0;
+            
+            for(auto k:dis){
+                if(k<=distanceThreshold)tempCount++;
+            }
+            
+            if(tempCount<=count && tempCount!=0){
+                count=tempCount;
+                ans=i;
+            }
             
             
             
             
-           }
-         
-        return index!=-1?index:-1;
+        }
+        
+        return ans;
+        
+        
         
         
     }
