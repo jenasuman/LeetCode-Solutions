@@ -2,37 +2,43 @@ class Solution {
 public:
     int characterReplacement(string s, int k) {
         
-        int start=0;
-        int end=0;
-        
-        vector<int> count(26,0);
-        int maxCount=0;
-        
-        int ans=1;
         int n=s.size();
         
-        for(;start<n;start++){
+        vector<int> v(26,0);
+        
+        int ans=1;
+        int j=0;
+        int maxCount=0;
+        for(int i=0;i<n;i++){
+         
+            v[s[i]-'A']++;
             
-            count[s[start]-'A']++;
+            maxCount=max(v[s[i]-'A'],maxCount);
             
-            maxCount=max(count[s[start]-'A'],maxCount);
-            
-            while(start-end-maxCount+1>k){
+            while((i-j-maxCount+1)>k){
                 
-                count[s[end]-'A']--;
-                end++;
-                
-                for(int i=0;i<26;i++){
+                v[s[j]-'A']--;
+                j++;
+                for(int k=0;k<26;k++){
                     
-                    maxCount=max(maxCount,count[i]);
+                    maxCount=max(v[k],maxCount);
+                    
                     
                 }
-             }
+                
+                
+                
+                
+                
+            }
             
-            ans=max(ans,start-end+1);
+            ans=max(i-j+1,ans);
+
             
         }
         
         return ans;
+        
+        
     }
 };
