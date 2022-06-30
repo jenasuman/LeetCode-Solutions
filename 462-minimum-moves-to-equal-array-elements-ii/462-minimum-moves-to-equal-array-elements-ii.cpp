@@ -13,8 +13,9 @@ public:
         
         vector<ll> prefix(n);
         vector<ll> suffix(n);
-        
+          
         prefix[0]=nums[0];
+        suffix[n-1]=nums[n-1];
         
         for(int i=1;i<n;i++){
             
@@ -22,29 +23,27 @@ public:
             
         }
         
-        suffix[n-1]=nums[n-1];
-        
         for(int i=n-2;i>=0;i--){
             
             suffix[i]=suffix[i+1]+nums[i];
             
         }
-        
-        long long int ans=INT_MAX;
-        
+        ll ans=INT_MAX;
         for(int i=0;i<n;i++){
             
+            ll left=((ll)(i+1)*(ll)(nums[i])-prefix[i]);
+            ll right=(suffix[i]-(ll)(n-i)*(ll)(nums[i]));
             
-            long long int temp=(((ll)(i+1)*(ll)nums[i])-prefix[i]);
+            ll res=left+right;
             
-            temp=temp+(suffix[i]-((ll)(n-i)*(ll)nums[i]));
+            ans=min(res,ans);
             
-            ans=min(ans,temp);
             
             
         }
         
         return ans;
+        
         
         
     }
