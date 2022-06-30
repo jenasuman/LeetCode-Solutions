@@ -29,11 +29,38 @@ class Solution{
 	    // Your code goes here
 	    
 	   // int prev=-1;
-	    memset(dp,-1,sizeof(dp));
-	   return f(0,0,n,arr);
-	    
-	    
-	    
+	   // memset(dp,-1,sizeof(dp));
+	   //return f(0,0,n,arr);
+	   vector<int> dp(n,0);
+	   dp[0]=arr[0]; 
+	   int ans=dp[0];
+	   for(int i=1;i<n;i++){
+	       
+	       
+	       for(int j=0;j<i;j++){
+	           int choice1=0;
+	           int  choice2=0;
+	           if(arr[i]>arr[j]){
+	               //cout<<arr[i]<<" "<<arr[j]<<"\n";
+	               choice1=arr[i]+dp[j];
+	               //cout<<choice1<<"\n";
+	               
+	           }
+	           choice2=arr[i];
+	           //cout<<choice1<<" "<<choice2<<"\n";
+	           dp[i]=max({dp[i],choice1,choice2});
+	           
+	           
+	       }
+	       
+	       
+	       
+	       //cout<<dp[i]<<"\n";
+	       ans=max(dp[i],ans);
+	       
+	   } 
+	   
+	    return ans;
 	    
 	}  
 };
