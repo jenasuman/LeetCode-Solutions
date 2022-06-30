@@ -4,22 +4,37 @@ using namespace std;
 
  // } Driver Code Ends
 class Solution{
-		
+    int dp[1002][1002];
+    int f(int i,int prev,int n,int arr[]){
+        
+        
+        if(i>=n)return 0;
+        
+        int choice1=0;
+        int choice2=0;
+        if(dp[i][prev]!=-1)return dp[i][prev];
+        if(prev==0 || arr[i]>arr[prev-1]){
+            choice1=arr[i]+f(i+1,i+1,n,arr);
+        }
+        
+        choice2=f(i+1,prev,n,arr);
+        
+        return dp[i][prev]=max(choice1,choice2);
+        
+    }		
 
 	public:
 	int maxSumIS(int arr[], int n)  
 	{  
-	    vector<int> dp(n);
-	    for(int i=0; i<n; i++)
-	        dp[i]=arr[i];
-	    int ans = arr[0];
-	    for(int i=1; i<n; i++){
-	        for(int j=0; j<i; j++){
-	            if(arr[j]<arr[i])dp[i]=max(dp[i],dp[j]+arr[i]);
-	        }
-	        ans = max(ans, dp[i]);
-	    }
-	    return ans;
+	    // Your code goes here
+	    
+	   // int prev=-1;
+	    memset(dp,-1,sizeof(dp));
+	   return f(0,0,n,arr);
+	    
+	    
+	    
+	    
 	}  
 };
 
