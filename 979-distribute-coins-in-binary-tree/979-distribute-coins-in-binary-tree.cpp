@@ -19,27 +19,11 @@ public:
         int left=f(root->left);
         int right=f(root->right);
         
-
+        ans+=(abs(left)+abs(right));
+         
+        root->val+=(left+right);
         
-        if(left>0){
-            ans+=left;
-            root->val+=left;
-        }
-        if(right>0){
-            ans+=right;
-            root->val+=right;
-        }
-        
-        if(right<0){
-            ans-=right;
-            root->val+=right;
-        }
-        if(left<0){
-            ans-=left;
-            root->val+=left;
-        }
-        
-        return  root->val==1?0:root->val-1;
+        return root->val-1;
     }
     int distributeCoins(TreeNode* root) {
         
