@@ -6,9 +6,6 @@ public:
         if(n%groupSize!=0){
             return false;
         }
-        
-        // sort(begin(hand),end(hand));
-        
         map<int,int> m;
         
         
