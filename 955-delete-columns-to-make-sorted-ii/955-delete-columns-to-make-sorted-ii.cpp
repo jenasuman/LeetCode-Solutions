@@ -12,8 +12,8 @@ public:
         }
         int count=0;
         unordered_map<int,int> col;
-        while(1){
-            bool flag=true;
+        for(int k=0;k<m;k++){
+        // bool flag=true;
         for(int i=1;i<n;i++){
             
             string s1=strs[i-1];
@@ -27,7 +27,7 @@ public:
                     continue;
                 }
                 if(s1[j]>s2[j]){
-                     flag=false;
+                     // flag=false;
                      col[j]++;
                 }
                 if(s1[j]<s2[j]){
@@ -45,7 +45,7 @@ public:
              
          }   
             
-        if(flag==true)break;
+
         }    
             
             
