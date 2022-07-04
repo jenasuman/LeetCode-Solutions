@@ -34,11 +34,31 @@ public:
     }
     int wiggleMaxLength(vector<int>& nums) {
         
-        memset(dp,-1,sizeof(dp));
+        int n=nums.size();
         
+
         
-        return max(f(0,1,1,nums),f(0,1,0,nums))+1;
+        int up=1;
+        int down=1;
         
+        for(int i=1;i<n;i++){
+            
+            int diff=nums[i]-nums[i-1];
+            
+            if(diff>0){
+                
+                up=down+1;
+                
+                
+            }
+            else if(diff<0){
+                
+                down=up+1;
+                
+            }
+        }
+        
+        return max(down,up);
         
         
     }
