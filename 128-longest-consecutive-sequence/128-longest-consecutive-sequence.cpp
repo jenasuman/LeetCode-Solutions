@@ -1,65 +1,24 @@
 class Solution {
 public:
-    unordered_map<int,vector<int>> adj;
-    unordered_map<int,int> vis;
-    void f(int src,int& count){
-        
-        count++;
-        vis[src]=1;
-        // cout<<src<<" ";
-        
-        for(auto c:adj[src]){
-            
-            if(vis.find(c)==vis.end()){
-                f(c,count);
-            }
-            
-        }
-        
-        
-        
-    }
     int longestConsecutive(vector<int>& nums) {
-        int n=nums.size();
+        unordered_set<int> s(begin(nums),end(nums));
         
-        unordered_map<int,int> m;
+        int longest=0;
         
-        for(int i=0;i<n;i++){
-            m[nums[i]]=i;
-        }
-
-        for(int i=0;i<n;i++){
+        
+        for(auto num:s){
             
-            if(m.find(nums[i]+1)!=m.end()){
-            adj[nums[i]].push_back(nums[i]+1);
-            adj[nums[i]+1].push_back(nums[i]);
-            }
+            int cur_longest=1;
             
+            for(int i=1;s.count(num-i);i++)s.erase(num-i),cur_longest++;
+            for(int i=1;s.count(num+i);i++)s.erase(num+i),cur_longest++;
             
+            longest=max(longest,cur_longest);
             
             
         }
         
-        
-        int ans=INT_MIN;
-        for(int i=0;i<n;i++){
-            
-            if(vis.find(nums[i])==vis.end()){
-                
-                int count=0;
-                
-                f(nums[i],count);
-                
-                ans=max(ans,count);
-                // cout<<endl;
-            }
-            
-            
-            
-        }
-        
-        return ans==INT_MIN?0:ans;
-        
+        return longest;
         
     }
 };
