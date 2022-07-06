@@ -127,7 +127,7 @@ void f(Node* root,int slope,map<int,vector<int>>& m){
     
     m[slope].push_back(root->data);
     
-    f(root->left,slope-1,m);
+    f(root->left,slope+1,m);
     f(root->right,slope,m);
     
     return;
@@ -140,26 +140,21 @@ vector<int> diagonal(Node *root)
 {
    // your code here
    map<int,vector<int>> m;
-   f(root,-1,m);
+   f(root,1,m);
    
    vector<int> ans;
    stack<int> s;
    for(auto i:m){
        
        auto v=i.second;
-       reverse(begin(v),end(v));
        for(auto j:v){
-           s.push(j);
+         ans.push_back(j);
        }
        
        
    }
    
-   while(!s.empty()){
-       ans.push_back(s.top());
-       s.pop();
-   } 
-       
+
    return ans;
    
 }
