@@ -8,31 +8,36 @@ class Solution{
     public:
     int transfigure (string A, string B)
     {
-int arr[256]={0};
-    	for(int i=0;i<A.size();i++){
-    	    arr[A[i]]++;
+    	// Your code goes here
+    	
+    	vector<int> vis(256,0);
+    	
+    	for(auto c:A){
+    	    vis[c]++;
     	}
-    	for(int i=0;i<B.size();i++){
-    	    arr[B[i]]--;
-    	}
-    	for(int  i=0;i<256;i++){
-    	    if(arr[i]!=0){
-    	        return -1; 
+    	for(auto c:B){
+    	    if(vis[c]==0){
+    	        return -1;
     	    }
+    	    vis[c]--;
     	}
-    	int i=A.size(),j=A.size(),c=0;
-    	while(i>=0){
+    	int n=A.size();
+    	int i=n;
+    	int j=n;
+    	int ans=0;
+    	while(i>=0 && j>=0){
+    	    
     	    if(A[i]==B[j]){
     	        j--;
-    	    }else{
-    	        c++;
+    	    }
+    	    else{
+    	        ans++;
     	    }
     	    i--;
+    	    
     	}
-    	return c;
     	
-    // 	return ans;
-    	
+    	return ans;
     	
     }
 };
