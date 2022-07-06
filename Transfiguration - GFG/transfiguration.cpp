@@ -22,8 +22,8 @@ class Solution{
     	    vis[c]--;
     	}
     	int n=A.size();
-    	int i=n;
-    	int j=n;
+    	int i=n-1;
+    	int j=n-1;
     	int ans=0;
     	while(i>=0 && j>=0){
     	    
