@@ -121,7 +121,7 @@ struct Node
 }; */
 
 
-void f(Node* root,int slope,map<int,vector<int>>& m){
+void f(Node* root,int slope,vector<vector<int>>& m){
     
     if(root==NULL)return;
     
@@ -139,14 +139,14 @@ void f(Node* root,int slope,map<int,vector<int>>& m){
 vector<int> diagonal(Node *root)
 {
    // your code here
-   map<int,vector<int>> m;
+   vector<vector<int>> m(100002);
    f(root,1,m);
    
    vector<int> ans;
-   stack<int> s;
-   for(auto i:m){
+   
+   for(int i=1;i<100002;i++){
        
-       auto v=i.second;
+       auto v=m[i];
        for(auto j:v){
          ans.push_back(j);
        }
