@@ -22,41 +22,55 @@ public:
             if(count==(left-1)){
                 start=temp;
             }
-            if(count==(right+1)){
-                end=temp;
-            }
+            
             if(count==left){
-                reverseStart=temp;
+                ListNode* prev=NULL;
+                end=temp;
+                while(left<=right && temp)
+                {
+                  ListNode* temp2=temp->next;
+                  temp->next=prev;
+                  prev=temp;
+                  temp=temp2;
+                  left++;  
+                    
+                }
+                
+                if(start){        
+                    start->next=prev;
+                }
+                else{
+                    head=prev;
+                }
+                end->next=temp;
+                
+                break;
+                
             }
             count++;
             temp=temp->next;
             
         }
         
-        ListNode* prev=NULL;
-        temp=reverseStart;
-        while(left<=right && temp){
+//         ListNode* prev=NULL;
+//         temp=reverseStart;
+//         while(left<=right && temp){
             
-            ListNode* temp2=temp->next;
-            temp->next=prev;
-            prev=temp;
-            temp=temp2;
+//             ListNode* temp2=temp->next;
+//             temp->next=prev;
+//             prev=temp;
+//             temp=temp2;
             
-            left++;
-        }
+//             left++;
+//         }
         
         
-        if(start){        
-        start->next=prev;
-        }
-        else{
-            head=prev;
-        }
-        while(prev->next){
-            prev=prev->next;
+
+//         while(prev->next){
+//             prev=prev->next;
             
-        }
-        prev->next=end;
+//         }
+//         prev->next=end;
         
         return head;
         
