@@ -4,38 +4,30 @@ public:
           
         int n=s.size();
         
-        vector<int> lps(n,0);
+        vector<int> LPS(n);
         
+        LPS[0]=0;
         
-        int i=1;
         int j=0;
+        int i=1;
         
         while(i<n){
             
             if(s[i]==s[j]){
+                LPS[i]=j+1;
                 j++;
-                lps[i]=j;
                 i++;
             }
             else{
-                
-                if(j!=0){
-                    j=lps[j-1];
-                }
-                else{
-                    i++;
-                }
-                
-                
-                
+                if(j!=0)j=LPS[j-1];
+                else i++;
             }
             
-            
-            
-            
         }
-
-        return s.substr(0,lps.back());
+        
+        
+        return s.substr(0,j);
+        
         
     }
 };
