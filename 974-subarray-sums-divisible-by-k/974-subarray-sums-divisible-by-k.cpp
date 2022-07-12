@@ -1,27 +1,33 @@
 class Solution {
 public:
-    int subarraysDivByK(vector<int>& A, int K) {
+    int subarraysDivByK(vector<int>& nums, int k) {
          
-       int n = A.size();
-        if(n==0) return 0;
+        int n=nums.size();
         
-        int i = 0, count = 0;
-        int curr_sum = 0;
-        unordered_map<int, int> mp;
-        mp[0] = 1;// this is done because initial cumulative sum = 0 and that sum%k will be equal to 0 always
+        if(n==0)return 0;
         
-        while(i<n)
-        {
-            curr_sum+= A[i++];
-            int rem = curr_sum % K;
-            if(rem<0) rem += K;
+        unordered_map<int,int> m;
+        
+        m[0]=1;
+        int sum=0;
+        int ans=0;
+        // cout<<(-8)%5;
+        for(int i=0;i<n;i++){
             
-            if(mp.find(rem)!=mp.end())
-                count+=mp[rem];
+             sum+=nums[i];
             
-            mp[rem]++;
+             int remainder=(sum)%k;
+            
+             if(remainder<0)remainder+=k;
+            
+             if(m.find(remainder)!=m.end())
+                 ans+=m[remainder];
+            
+             m[remainder]++;
+            
             
         }
-        return count;
+        return ans;
+        
     }
 };
