@@ -21,8 +21,10 @@ public:
         for(int i=0;i<n;i++){
             
             prefix=(prefix+nums[i])%p;
+        
+            int key=(prefix-rem)%p;
             
-            int key=(prefix-rem+p)%p;
+            if(key<0)key+=p;
             
             if(m.count(key)){
                 ans=min(ans,i-m[key]);
