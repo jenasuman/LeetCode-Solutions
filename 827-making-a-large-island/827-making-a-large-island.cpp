@@ -1,5 +1,6 @@
 class Solution {
 public:
+    //You can also use colour array in place of DSU
     pair<int,int> findParent(int x,int y,vector<vector<pair<int,int>>>& parent){
         
         int px=parent[x][y].first;
@@ -19,14 +20,14 @@ public:
         y=p1.second;
         cx=p2.first;
         cy=p2.second;
-        // cout<<x<<" "<<y<<" "<<cx<<" "<<cy<<"\n";
+
         if(p1!=p2){
             
             if(rank[x][y]<rank[cx][cy]){
                 swap(x,cx);
                 swap(y,cy);
             }
-            // cout<<"hello";
+
             parent[cx][cy]={x,y};
             rank[x][y]+=rank[cx][cy];
             
@@ -66,7 +67,7 @@ public:
                         
                         int x=i+dx[k];
                         int y=j+dy[k];
-                        // cout<<x<<" "<<y<<"\n";
+
                         if(x>=0 && x<n && y<m && y>=0 && grid[x][y]==1)
                         dsu(parent,rank,i,j,x,y);
                       }
@@ -76,7 +77,7 @@ public:
         int ans=0;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                // cout<<rank[i][j]<<" ";
+
                 
                  
                 if(grid[i][j]==1)ans=max(ans,rank[i][j]);
@@ -102,31 +103,10 @@ public:
                         }
 
                       }
-                    
-                    // for(auto c:s){
-                    //     int x=c.first;
-                    //     int y=c.second;
-
-                    // }
-                    
-                    ans=max(ans,res);
+                     ans=max(ans,res);
                   } 
-                    
-                    
-                    
-                    
-                    
-                }
-                // cout<<endl;
-                
-                
-                
             }
-
-        // cout<<parent[0][4].first<<" "<<parent[0][4].second<<"\n";
-        
-        
-        
+        }
         return ans;
         
     }
