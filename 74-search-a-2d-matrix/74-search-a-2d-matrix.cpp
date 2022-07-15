@@ -6,15 +6,29 @@ public:
         //log(m+n)
         int n=matrix.size();
         int m=matrix[0].size();
-        
+        vector<int> v(n);
+       
         for(int i=0;i<n;i++){
             
-            int index=lower_bound(begin(matrix[i]),end(matrix[i]),target)-begin(matrix[i]);
+            v[i]=matrix[i][0];
             
-            if(index!=m && matrix[i][index]==target)return true;
         }
         
-        return false;
+        int index=lower_bound(begin(v),end(v),target)-begin(v);
+        
+        if(index!=n && v[index]==target)return true;
+        
+        if(index==0)return false;
+        
+        index--;
+        
+        int i=lower_bound(begin(matrix[index]),end(matrix[index]),target)-begin(matrix[index]);
+        
+        if(i==m)return false;
+        
+        if(matrix[index][i]==target)return true;
+        
+       return false;
         
         
     }
