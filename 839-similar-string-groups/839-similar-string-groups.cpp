@@ -33,42 +33,37 @@ public:
     
     int numSimilarGroups(vector<string>& strs) {
         
-        unordered_map<string,int> m;
-        int count=0;
-        int n=strs.size();
-        for(int i=0;i<n;i++){
-            
-            if(m.find(strs[i])==m.end()){
-                m[strs[i]]=count;
-                count++;
-            }
-            
-            
-        }
         
-        // n=m.size();
-        rank.resize(count);
-        parent.resize(count);
+
+        int n=strs.size();
+        rank.resize(n);
+        parent.resize(n);
         
         // n=strs.size();
         
-        for(int i=0;i<count;i++){
+        for(int i=0;i<n;i++){
             parent[i]=i;
-            rank[i]=i;
+            rank[i]=1;
         }
         
-        
+        unordered_map<string,int> m;
+        m[strs[0]]=0;
         
         for(int k=1;k<n;k++){
             string temp=strs[k];
             int l=strs[k].size();
+            if(m.find(temp)!=m.end()){
+                parent[k]=303;
+                continue;
+            }
             for(int i=0;i<l;i++){
                 
-                for(int j=i+1;j<l;j++){
+                for(int j=i;j<l;j++){
                     
                     swap(temp[i],temp[j]);
-                    if(m.find(temp)!=m.end())
-                        dsu(m[temp],m[strs[k]]);
+                    if(m.find(temp)!=m.end()){
+                        dsu(m[temp],k);
+                    }    
                     
                     swap(temp[i],temp[j]);
                     
@@ -76,13 +71,14 @@ public:
                 
                 
             }
-
+            if(m.find(strs[k])==m.end())
+            m[strs[k]]=k; 
             
         }
         
         int ans=0;
         
-        for(int i=0;i<count;i++){
+        for(int i=0;i<n;i++){
             
             if(i==parent[i])ans++;
             
