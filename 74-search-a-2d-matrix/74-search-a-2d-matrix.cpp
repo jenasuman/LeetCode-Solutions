@@ -2,32 +2,34 @@ class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
         
-        //nlog(m)
-        //log(m+n)
-      if(matrix.empty() || matrix[0].empty())
-    {
-        return false;
-    }
-    int m = matrix.size(), n = matrix[0].size();
-    int start = 0, end = m*n - 1;
-    while(start <= end)
-    {
-        int mid = start + (end - start)/2;
-        int e = matrix[mid/n][mid%n];
-        if(target < e)
-        {
-            end = mid - 1;
+                  int n=matrix.size();
+        int m=matrix[0].size();
+        
+        int l=0;
+        int h=m*n-1;
+        
+        while(l<=h){
+            
+            int mid=(l+h)/2;
+            
+            int row=mid/m;
+            int col=mid%m;
+            
+            if(matrix[row][col]==target)return true;
+            
+            if(matrix[row][col]>target){
+                
+                h=mid-1;
+                
+            }
+            else{
+                l=mid+1;
+            }
+            
+            
+            
         }
-        else if(target > e)
-        {
-            start = mid + 1;
-        }
-        else
-        {
-            return true;
-        }
-    }
-    return false;
+        return 0;      
 
     }
 };
