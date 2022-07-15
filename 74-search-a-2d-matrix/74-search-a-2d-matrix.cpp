@@ -4,32 +4,30 @@ public:
         
         //nlog(m)
         //log(m+n)
-        int n=matrix.size();
-        int m=matrix[0].size();
-        vector<int> v(n);
-       
-        for(int i=0;i<n;i++){
-            
-            v[i]=matrix[i][0];
-            
+      if(matrix.empty() || matrix[0].empty())
+    {
+        return false;
+    }
+    int m = matrix.size(), n = matrix[0].size();
+    int start = 0, end = m*n - 1;
+    while(start <= end)
+    {
+        int mid = start + (end - start)/2;
+        int e = matrix[mid/n][mid%n];
+        if(target < e)
+        {
+            end = mid - 1;
         }
-        
-        int index=lower_bound(begin(v),end(v),target)-begin(v);
-        
-        if(index!=n && v[index]==target)return true;
-        
-        if(index==0)return false;
-        
-        index--;
-        
-        int i=lower_bound(begin(matrix[index]),end(matrix[index]),target)-begin(matrix[index]);
-        
-        if(i==m)return false;
-        
-        if(matrix[index][i]==target)return true;
-        
-       return false;
-        
-        
+        else if(target > e)
+        {
+            start = mid + 1;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    return false;
+
     }
 };
