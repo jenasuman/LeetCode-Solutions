@@ -3,13 +3,13 @@ public:
     int getMaximumConsecutive(vector<int>& coins) {
         
         sort(begin(coins),end(coins));
-        int count=1;
+        int sum=1;
         int n=coins.size();
         
         for(auto coin:coins){
             
-            if(count>=coin){
-                count+=coin;
+            if(sum>=coin){
+                sum+=coin;
             }
             else{
                 break;
@@ -17,6 +17,6 @@ public:
             
             
         }
-        return count;
+        return sum;
     }
 };
